@@ -1,4 +1,4 @@
-use proc_macro_test::{donothing, template};
+use proc_macro_test::{donothing, Template};
 
 // TODO: "Hide" this from the main program
 pub trait TemplateFile {
@@ -6,8 +6,8 @@ pub trait TemplateFile {
     const CONTENT: &'static str;
 }
 
+#[derive(Template, Debug)]
 #[template(path = "index.html")]
-#[derive(Debug)]
 struct MyData {
     name: &'static str,
 }
@@ -17,5 +17,5 @@ fn main() {
     let data = MyData { name: "hello" };
     println!("Data: {:?}", data);
     println!("File Path: {}", <MyData as TemplateFile>::PATH);
-    println!("File Content: {}", <MyData as TemplateFile>::CONTENT);
+    println!("File Content: \n{}", <MyData as TemplateFile>::CONTENT);
 }
